@@ -357,9 +357,20 @@ static const CGFloat kJSSubtitleLabelHeight = 15.0f;
     }
     
     JSMessageTableView *tableView = (JSMessageTableView *)view;
-    if(tableView.messageDelegate && [tableView.messageDelegate respondsToSelector:@selector(deleteMessageCell:)])
-    {        
-        [tableView.messageDelegate deleteMessageCell:self];
+    if(tableView.messageDelegate && [tableView.messageDelegate respondsToSelector:@selector(deleteMessageAtIndexPath:)])
+    {
+        NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+        NSIndexPath *indexPath;
+        
+        if([systemVersion floatValue] >= 7.0)
+        {
+            indexPath = [(UITableView *)self.superview.superview indexPathForCell:self];
+        }
+        else
+        {
+            indexPath = [(UITableView *)self.superview indexPathForCell:self];
+        }
+        [tableView.messageDelegate deleteMessageAtIndexPath:indexPath];
     }
     [self resignFirstResponder];
 }

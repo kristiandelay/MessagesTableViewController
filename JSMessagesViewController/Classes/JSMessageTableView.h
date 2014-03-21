@@ -14,7 +14,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class JSBubbleMessageCell;
 
 @protocol JSMessageTableViewDelegate <NSObject>
 
@@ -22,7 +21,7 @@
 
 @optional
 
-- (void)deleteMessageCell:(JSBubbleMessageCell *)cell;
+- (void)deleteMessageAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 /**
